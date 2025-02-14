@@ -16,8 +16,11 @@ BLOG_NAME = os.getenv("BLOG_NAME")
 def home():
     return "Fiction Feast Submission API is Running!"
 
-@app.route("/submit", methods=["POST"])
+@app.route("/submit", methods=["GET", "POST"])
 def submit_book():
+    if request.method == "GET":
+        return jsonify({"error": "Use POST method to submit books"}), 405
+
     print("🔹 Received a request at /submit")  # Debugging step
     
     # Check if JSON data is received
