@@ -60,8 +60,12 @@ def submit_book():
     else:
         return jsonify({"error": "Tumblr submission failed", "details": response.text}), 500
 
+import os
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    port = int(os.environ.get("PORT", 5000))  # Get the port from Render
+    app.run(host="0.0.0.0", port=port)
+
 
 @app.route("/routes", methods=["GET"])
 def show_routes():
