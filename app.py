@@ -48,3 +48,7 @@ def submit_book():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
+@app.route("/routes", methods=["GET"])
+def show_routes():
+    return jsonify([str(rule) for rule in app.url_map.iter_rules()])
