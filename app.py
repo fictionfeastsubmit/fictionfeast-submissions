@@ -18,14 +18,28 @@ def home():
 
 @app.route("/submit", methods=["POST"])
 def submit_book():
+    print("🔹 Received a request at /submit")  # Debugging step
+    
+    # Check if JSON data is received
+    if not request.is_json:
+        print("❌ Error: No JSON received")  # Debugging step
+        return jsonify({"error": "Request must be JSON"}), 400
+
     data = request.json
+
+    print(f"📖 Received book data: {data}")  # Debugging step
+
     title = data.get("title")
     author = data.get("author")
     summary = data.get("summary")
     tags = data.get("tags", "")
 
     if not title or not author or not summary:
+        print("❌ Error: Missing required fields")  # Debugging step
         return jsonify({"error": "Missing required fields"}), 400
+
+    return jsonify({"message": "Submission received!"})
+
 
     # Format Tumblr post
     post_data = {
